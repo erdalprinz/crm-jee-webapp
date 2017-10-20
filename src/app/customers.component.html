@@ -1,0 +1,18 @@
+<h2>Customers</h2>
+<div class="customerList">
+    <ul class="customers">
+        <li *ngFor="let customer of customers" [class.selected]="customer === selectedCustomer" (click)="onSelect(customer)">
+            <span class="badge">{{customer.id}}</span> {{customer.firstName}} {{customer.name}}
+            <button class="delete" (click)="deleteCustomer(customer); $event.stopPropagation()">x</button>
+        </li>
+    </ul>
+    <label>Vorname: </label> <input #customerFirstName />
+    <label>Nachname: </label> <input #customerName />
+    <button (click)="addCustomer({firstName: customerFirstName.value, id: 0, name: customerName.value}); customerFirstName.value=''; customerName.value=''">
+        Hinzufügen
+    </button>
+</div>
+<div class="customerDetails" *ngIf="selectedCustomer">
+    <label>Vorname: </label> <input [(ngModel)]="selectedCustomer.firstName" placeholder="Vorname" />
+    <label>Nachname: </label> <input [(ngModel)]="selectedCustomer.name" placeholder="Nachname" />
+</div>
